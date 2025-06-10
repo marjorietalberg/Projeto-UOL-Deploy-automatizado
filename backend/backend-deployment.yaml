@@ -15,6 +15,7 @@ spec:
       containers:
         - name: fastapi-backend
           image: marjorie02/fastapi-backend:latest
+          imagePullPolicy: Never      # <--- IMPORTANTE para usar imagem local
           ports:
             - containerPort: 8000
 ---
