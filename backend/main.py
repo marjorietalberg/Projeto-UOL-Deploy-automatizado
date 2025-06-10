@@ -7,27 +7,27 @@ import httpx
 
 app = FastAPI()
 
-# Configuração CORS para permitir chamadas de qualquer origem (ou especifique se quiser restringir)
+# Middleware para liberar CORS (cross-origin requests)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Mude para ['http://localhost:3000'] para restringir
+    allow_origins=["*"],  # Se quiser limitar, especifique o domínio, ex: ["http://localhost:3000"]
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Rota raiz para teste simples da API
+# Endpoint raiz — para testar se a API está rodando
 @app.get("/")
 async def root():
     return {"message": "API FastAPI rodando com sucesso!"}
 
-# Endpoint que retorna uma cor aleatória para mudar a cor da página
+# 1️⃣ Endpoint que retorna uma cor aleatória
 @app.get("/color")
 async def get_random_color():
     colors = ["#FF5733", "#33FF57", "#3357FF", "#F333FF", "#33FFF3"]
     return {"color": random.choice(colors)}
 
-# Endpoint que retorna uma imagem aleatória de gato usando API externa
+# 2️⃣ Endpoint que retorna uma imagem aleatória de gato (usando API externa)
 @app.get("/cat")
 async def get_random_cat_image():
     async with httpx.AsyncClient() as client:
@@ -38,7 +38,7 @@ async def get_random_cat_image():
             return {"cat_image_url": image_url}
     return JSONResponse(content={"error": "Failed to fetch cat image"}, status_code=500)
 
-# Endpoint que retorna uma imagem aleatória via picsum.photos
+# 3️⃣ Endpoint que retorna uma foto aleatória do Picsum
 @app.get("/random-photo")
 async def get_random_photo():
     width = random.randint(200, 600)
@@ -46,23 +46,22 @@ async def get_random_photo():
     photo_url = f"https://picsum.photos/{width}/{height}"
     return {"random_photo_url": photo_url}
 
-# Endpoint que retorna o horário atual
+# 4️⃣ Endpoint que retorna o horário atual
 @app.get("/time")
 async def get_current_time():
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return {"current_time": now}
 
-# Endpoint que retorna uma imagem de susto aleatória
+# 5️⃣ Endpoint que retorna imagens para "susto"
 @app.get("/scare")
 async def scare():
     scare_images = [
         "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif",
         "https://media.giphy.com/media/26xBI73gWquCBBCDe/giphy.gif"
     ]
-    random_scare = random.choice(scare_images)
-    return {"scare_image_url": random_scare}
+    return {"scare_image_url": random.choice(scare_images)}
 
-# Endpoint que retorna uma imagem aleatória "lookalike"
+# 6️⃣ Endpoint que retorna imagens "parecidas"
 @app.get("/lookalike")
 async def lookalike():
     lookalike_images = [
@@ -70,5 +69,4 @@ async def lookalike():
         "https://randomuser.me/api/portraits/women/1.jpg",
         "https://randomuser.me/api/portraits/lego/1.jpg"
     ]
-    random_lookalike = random.choice(lookalike_images)
-    return {"lookalike_image_url": random_lookalike}
+    return {"lookalike_image_url": random.choice(lookalike_images)}
