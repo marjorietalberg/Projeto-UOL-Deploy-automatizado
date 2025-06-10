@@ -67,3 +67,17 @@ uvicorn main:app --reload
 
 > Kubernetes local configurado
 
+---
+### Passos :
+> Clonei o repositorio
+
+```bash 
+git clone https://github.com/usuario/seu-repositorio.git
+
+```
+> Entrei na pasta do meu projeto que chama :
+```bash
+cd Projeto-UOL-Deploy-automatizado
+
+```
+
