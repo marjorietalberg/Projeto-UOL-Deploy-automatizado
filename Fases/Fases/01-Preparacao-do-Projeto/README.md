@@ -2,6 +2,11 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0000FF&height=120&section=header" alt="Onda azul" />
 </p>
 
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" width="120" height="120" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes" width="120" height="120" />
+  <img src="https://img.icons8.com/?size=100&id=3tC9EQumUAuq&format=png&color=228BE6" alt="GitHub" width="120" height="120" />
+</p>
 
 
 # FASE 1: Preparação do Projeto
