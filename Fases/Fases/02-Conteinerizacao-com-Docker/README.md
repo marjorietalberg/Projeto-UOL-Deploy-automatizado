@@ -3,7 +3,8 @@
 </p>
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker Icon" width="120" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker Icon" width="200" style="margin-right: 20px;" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux Icon" width="200" />
 </p>
 
 
@@ -123,4 +124,8 @@ kubectl logs <pod-name>
 > Usamos o IP do Minikube e a porta NodePort para acessar a API e visualizar a documentação automática gerada pela FastAPI (Swagger UI).
 
 > Também testamos a resolução DNS dentro do cluster com um pod temporário baseado em busybox, garantindo que as imagens possam ser baixadas do Docker Hub sem problemas.
+
+<p align="center">    
+  <img src="https://github.com/user-attachments/assets/79a2e995-a1be-4192-9ded-771004ef7417" width="250">
+</p>
 
