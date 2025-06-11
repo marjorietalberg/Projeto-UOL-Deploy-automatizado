@@ -39,9 +39,6 @@
 - [Tecnologias Utilizadas](README.md#tecnologias-utilizadas)  
 - [Fases do Projeto](README.md#fases-do-projeto)  
 - [Executando Localmente](README.md#executando-localmente)  
-- [Como Contribuir](README.md#como-contribuir)  
-- [Contato](README.md#contato)  
-- [Licença](README.md#licenca)  
 
 ---
 
