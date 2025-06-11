@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  fastapi-app:
+    build: .
+    ports:
+      - "8080:8000" 
+       volumes:
+      - ./:/app  
+          environment:
+      - PYTHONUNBUFFERED=1
