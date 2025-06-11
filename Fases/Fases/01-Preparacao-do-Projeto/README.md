@@ -81,3 +81,7 @@ cd Projeto-UOL-Deploy-automatizado
 
 ```
 
+<p align="center">    
+  <img src="https://github.com/user-attachments/assets/79a2e995-a1be-4192-9ded-771004ef7417" width="250">
+</p>
+
