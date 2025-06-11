@@ -115,3 +115,9 @@ kubectl port-forward deployment/fastapi-backend 8000:8000
 ```
 <img src="https://github.com/user-attachments/assets/e2ca1724-c176-4442-af8a-43b1b6b65849" alt="Image">
 
+
+
+<p align="center">    
+  <img src="https://github.com/user-attachments/assets/79a2e995-a1be-4192-9ded-771004ef7417" width="250">
+</p>
+
