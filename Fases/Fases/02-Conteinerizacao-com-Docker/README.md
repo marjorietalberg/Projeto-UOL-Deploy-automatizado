@@ -4,8 +4,6 @@
 
 <p align="center">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker Icon" width="120" />
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://img.icons8.com/ios-filled/150/0078D7/parcel.png" alt="Container Icon" width="120" />
 </p>
 
 
@@ -17,35 +15,97 @@
 
 - [x] Enviar para o Docker Hub
     
-## 📌 1. Criar Dockerfile (exemplo para FastAPI):
-
-
-# Dockerfile
+### 1. Criar o arquivo deployment.yaml
+Este arquivo define o Deployment e o Service do Kubernetes para o seu backend FastAPI.
 
 ```bash
-FROM python:3.9-slim
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi-backend
+  template:
+    metadata:
+      labels:
+        app: fastapi-backend
+    spec:
+      containers:
+        - name: fastapi-backend
+          image: marjorie02/fastapi-backend:latest
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-service
+spec:
+  selector:
+    app: fastapi-backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: NodePort
 
-# Define o diretório de trabalho dentro do container
-WORKDIR /app
+```
+ > Deployment: Cria 1 réplica do container usando a imagem Docker do backend FastAPI.
 
-# Copia apenas o arquivo de dependências para otimizar o cache
-COPY requirements.txt .
+> Service: Expõe a aplicação na porta 80 do cluster, redirecionando para a porta 8000 do container.
 
-# Atualiza pip e instala dependências (use --no-cache-dir para reduzir tamanho)
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+> NodePort: Permite acesso externo ao cluster em uma porta dinâmica (geralmente entre 30000 e 32767).
 
-# Copia todo o restante do código para o container
-COPY . .
+### 2. Aplicar o arquivo no Kubernetes
+> Dentro da pasta onde está o arquivo deployment.yaml, execute:
+```bash
+kubectl apply -f deployment.yaml
 
-# Expõe a porta 8000 para acesso externo
-EXPOSE 8000
+```
+> Isso criará (ou atualizará) o Deployment e o Service.
 
-# Comando para iniciar a aplicação FastAPI com reload desativado (prod)
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+### 3. Verificar os pods e serviços
+Para verificar se o pod do backend está rodando:
+```bash
+kubectl get pods
+
+```
+> Para verificar os serviços e descobrir qual porta NodePort foi atribuída:
+```bash
+kubectl get svc
+
+```
+> Procure pela linha do serviço fastapi-service e veja a porta externa (NodePort) atribuída, por exemplo, 30080.
+
+### 4. Acessar a API
+> Você pode acessar sua API FastAPI via IP do Minikube (ou do seu cluster) e porta NodePort.
+
+> Para pegar o IP do minikube:
+```bash
+minikube ip
+
+```
+### 5. Testar DNS e resolução (opcional)
+Para garantir que o cluster consegue puxar imagens, crie um pod temporário com a imagem busybox:
+```bash
+kubectl run -i --tty dnsutils --image=busybox --restart=Never -- sh
+
 ```
 
-## 📌 2. Testar com Docker Compose :
+> Dentro do pod, use nslookup para testar DNS:
 ```bash
+nslookup registry-1.docker.io
+```
+> Código e comandos usados
+```bash
+kubectl apply -f deployment.yaml
+kubectl get pods
+kubectl get svc
+kubectl run -i --tty dnsutils --image=busybox --restart=Never -- sh
+nslookup registry-1.docker.io
+kubectl logs <pod-name>
 
 ```
