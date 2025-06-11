@@ -66,3 +66,43 @@ spec:
       nodePort: 30001
 
 ```
+### Passo 3: Aplicar os arquivos no Kubernetes
+Na pasta onde estão os arquivos deployment.yaml e service.yaml, execute:
+```bash
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+
+```
+### Passo 4: Verificar se os recursos foram criados
+Verifique os Pods:
+```bash
+kubectl get pods
+
+```
+
+### Verifique o serviço:
+```bash
+kubectl get svc fastapi-service
+
+```
+
+### Passo 5: Acessar a aplicação
+Agora, pegue o IP do seu Minikube:
+```bash
+minikube ip
+
+```
+
+> Suponha que retorne 192.168.49.2.
+
+> No navegador, acesse:
+```bash
+http://192.168.49.2:30001/
+
+```
+
+### Alternativa: Usar port-forward
+Se preferir não usar NodePort, pode rodar port-forward com:
+```bash
+kubectl port-forward deployment/fastapi-backend 8000:8000
+```
