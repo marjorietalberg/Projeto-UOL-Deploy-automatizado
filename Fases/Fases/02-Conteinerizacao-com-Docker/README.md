@@ -109,3 +109,18 @@ nslookup registry-1.docker.io
 kubectl logs <pod-name>
 
 ```
+
+### Nesta fase, configuramos e deployamos a API backend desenvolvida em FastAPI no cluster Kubernetes local (Minikube).
+
+> Criamos um arquivo deployment.yaml que define:
+
+> Um Deployment que roda a aplicação usando a imagem Docker marjorie02/fastapi-backend:latest, expondo a porta 8000.
+
+> Um Service do tipo NodePort para expor a aplicação na rede local, redirecionando a porta 80 para a porta 8000 do container.
+
+> Após aplicar a configuração com kubectl apply, verificamos se o pod está rodando corretamente com kubectl get pods e descobrimos a porta externa atribuída ao serviço com kubectl get svc.
+
+> Usamos o IP do Minikube e a porta NodePort para acessar a API e visualizar a documentação automática gerada pela FastAPI (Swagger UI).
+
+> Também testamos a resolução DNS dentro do cluster com um pod temporário baseado em busybox, garantindo que as imagens possam ser baixadas do Docker Hub sem problemas.
+
