@@ -35,12 +35,10 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE')]) {
                     withEnv(["KUBECONFIG=$KUBECONFIG_FILE"]) {
-                        dir('backend') {
-                            sh '''
-                                kubectl apply -f deployment.yaml
-                                kubectl apply -f service.yaml
-                            '''
-                        }
+                        sh '''
+                            kubectl apply -f deployment.yaml
+                            kubectl apply -f service.yaml
+                        '''
                     }
                 }
             }
