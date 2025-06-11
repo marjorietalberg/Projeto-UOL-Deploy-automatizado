@@ -127,5 +127,5 @@ Documentar todo o processo para garantir reprodução e manutenção do projeto:
 
 
 <p align="center">    
-  <img src="https://github.com/user-attachments/assets/79a2e995-a1be-4192-9ded-771004ef7417" width="300">
+  <img src="https://github.com/user-attachments/assets/79a2e995-a1be-4192-9ded-771004ef7417" width="250">
 </p>
