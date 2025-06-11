@@ -2,55 +2,57 @@ pipeline {
     agent any
 
     environment {
-        // Substitua pelos seus próprios IDs de credenciais no Jenkins
-        DOCKER_CREDENTIALS = credentials('dockerhub-credentials-id')  // Credencial Docker Hub
-        KUBE_CONFIG = credentials('kubeconfig-credentials-id')        // Kubeconfig do cluster
-
-        IMAGE_NAME = 'marjorie02/fastapi-backend'
-        IMAGE_TAG = 'latest'
+        DOCKER_IMAGE = "marjorie02/fastapi-backend:latest"
     }
 
     stages {
-        stage('Checkout') {
+        stage('Clonar Repositório') {
             steps {
-                echo 'Clonando repositório...'
-                checkout scm
+                git branch: 'main', url: 'https://github.com/marjorietalberg/Projeto-UOL-Deploy-automatizado.git'
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build da Imagem Docker') {
             steps {
-                echo 'Construindo imagem Docker...'
                 script {
-                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                    docker.build("${DOCKER_IMAGE}")
                 }
             }
         }
 
-        stage('Login and Push to Docker Hub') {
+        stage('Push para Docker Hub') {
             steps {
-                echo 'Logando e enviando para Docker Hub...'
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials-id') {
-                        docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    script {
+                        sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
+                        sh "docker push ${DOCKER_IMAGE}"
                     }
                 }
             }
         }
 
-        stage('Deploy to Kubernetes') {
+        stage('Deploy no Kubernetes') {
             steps {
-                echo 'Realizando deploy no Kubernetes...'
-                script {
-                    // Salva o kubeconfig no workspace
-                    writeFile file: 'kubeconfig', text: KUBE_CONFIG
-                    sh 'chmod 600 kubeconfig'
-
-                    // Aplica os arquivos de deploy no cluster
-                    sh 'kubectl --kubeconfig=kubeconfig apply -f deployment.yaml'
-                    sh 'kubectl --kubeconfig=kubeconfig apply -f service.yaml'
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE')]) {
+                    withEnv(["KUBECONFIG=$KUBECONFIG_FILE"]) {
+                        dir('backend') {
+                            sh '''
+                                kubectl apply -f deployment.yaml
+                                kubectl apply -f service.yaml
+                            '''
+                        }
+                    }
                 }
             }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Deploy realizado com sucesso!'
+        }
+        failure {
+            echo '❌ Erro no pipeline.'
         }
     }
 }
