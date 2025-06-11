@@ -2,6 +2,13 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0000FF&height=120&section=header" alt="Onda azul" />
 </p>
 
+<p align="center">
+  <img src="https://www.jenkins.io/images/logos/jenkins/jenkins.svg" alt="Jenkins Icon" width="130" style="vertical-align: middle;" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://www.vectorlogo.zone/logos/docker/docker-icon.svg" alt="Docker Icon" width="170" style="vertical-align: middle;" />
+</p>
+
+
 # Jenkins - Build e Push da Imagem Docker
 
 ### Objetivo
