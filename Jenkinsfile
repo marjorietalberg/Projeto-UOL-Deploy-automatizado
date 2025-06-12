@@ -30,6 +30,24 @@ pipeline {
                 }
             }
         }
+        
+        // Stage extra para conferir arquivos antes do deploy
+        stage('Verificar arquivos Kubernetes') {
+            steps {
+                script {
+                    sh '''
+                    echo "Listando arquivos na pasta backend:"
+                    ls -l backend/
+                    echo ""
+                    echo "Conteúdo de backend/deployment.yaml:"
+                    cat backend/deployment.yaml
+                    echo ""
+                    echo "Conteúdo de backend/service.yaml:"
+                    cat backend/service.yaml
+                    '''
+                }
+            }
+        }
 
         stage('Deploy no Kubernetes') {
             steps {
