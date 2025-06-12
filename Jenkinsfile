@@ -15,7 +15,8 @@ pipeline {
         stage('Build da Imagem Docker') {
             steps {
                 script {
-                    docker.build("${DOCKER_IMAGE}")
+                    // Corrigido: aponta para o diretório onde está o Dockerfile
+                    docker.build("${DOCKER_IMAGE}", "backend/")
                 }
             }
         }
@@ -36,8 +37,8 @@ pipeline {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE')]) {
                     withEnv(["KUBECONFIG=$KUBECONFIG_FILE"]) {
                         sh '''
-                            kubectl apply -f deployment.yaml
-                            kubectl apply -f service.yaml
+                            kubectl apply -f backend/deployment.yaml
+                            kubectl apply -f backend/service.yaml
                         '''
                     }
                 }
