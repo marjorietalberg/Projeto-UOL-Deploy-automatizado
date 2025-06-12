@@ -51,8 +51,10 @@ pipeline {
         stage('Deploy no Kubernetes') {
             steps {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE')]) {
-                    withEnv(["KUBECONFIG=$KUBECONFIG_FILE"]) {
-                        sh '''
+                    script {
+                        // Exporta a variável de ambiente para kubectl usar o kubeconfig correto
+                        sh """
+                            export KUBECONFIG=${KUBECONFIG_FILE}
                             echo "🌐 Contexto atual do Kubernetes:"
                             kubectl config current-context || exit 1
 
@@ -61,7 +63,7 @@ pipeline {
 
                             echo "🚀 Aplicando service.yaml..."
                             kubectl apply -f service.yaml || exit 1
-                        '''
+                        """
                     }
                 }
             }
