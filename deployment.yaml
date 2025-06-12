@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fastapi-backend
+  labels:
+    app: fastapi-backend
 spec:
   replicas: 1
   selector:
@@ -13,7 +15,19 @@ spec:
         app: fastapi-backend
     spec:
       containers:
-      - name: fastapi-container
-        image: marjorie02/fastapi-backend:latest
-        ports:
-        - containerPort: 8000
+        - name: fastapi-container
+          image: marjorie02/fastapi-backend:latest
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /docs
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /docs
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
