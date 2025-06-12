@@ -35,14 +35,14 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    echo "Listando arquivos na raiz do projeto:"
-                    ls -l
-                    echo ""
-                    echo "Conteúdo de deployment.yaml:"
-                    cat deployment.yaml
-                    echo ""
-                    echo "Conteúdo de service.yaml:"
-                    cat service.yaml
+                        echo "📁 Listando arquivos na raiz do projeto:"
+                        ls -l
+                        echo ""
+                        echo "📄 Conteúdo de deployment.yaml:"
+                        cat deployment.yaml || echo "Arquivo deployment.yaml não encontrado!"
+                        echo ""
+                        echo "📄 Conteúdo de service.yaml:"
+                        cat service.yaml || echo "Arquivo service.yaml não encontrado!"
                     '''
                 }
             }
@@ -53,8 +53,14 @@ pipeline {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE')]) {
                     withEnv(["KUBECONFIG=$KUBECONFIG_FILE"]) {
                         sh '''
-                            kubectl apply -f deployment.yaml
-                            kubectl apply -f service.yaml
+                            echo "🌐 Contexto atual do Kubernetes:"
+                            kubectl config current-context || exit 1
+
+                            echo "🚀 Aplicando deployment.yaml..."
+                            kubectl apply -f deployment.yaml || exit 1
+
+                            echo "🚀 Aplicando service.yaml..."
+                            kubectl apply -f service.yaml || exit 1
                         '''
                     }
                 }
@@ -67,7 +73,7 @@ pipeline {
             echo '✅ Deploy realizado com sucesso!'
         }
         failure {
-            echo '❌ Erro no pipeline.'
+            echo '❌ Erro no pipeline. Verifique os logs acima.'
         }
     }
 }
