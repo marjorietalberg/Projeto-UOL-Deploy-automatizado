@@ -8,6 +8,6 @@ spec:
   type: NodePort
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8000
-      nodePort: 30001
+      port: 80          # Porta do serviço dentro do cluster
+      targetPort: 8000  # Porta do container onde o app está escutando
+      nodePort: 30001   # Porta exposta no nó do Kubernetes (acesso externo)
