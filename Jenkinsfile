@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    options {
-        chucknorris()
-    }
-
     environment {
         DOCKER_IMAGE = "marjorie02/fastapi-backend:latest"
     }
