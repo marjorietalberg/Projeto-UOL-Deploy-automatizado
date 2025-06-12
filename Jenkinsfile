@@ -30,20 +30,19 @@ pipeline {
                 }
             }
         }
-        
-        // Stage extra para conferir arquivos antes do deploy
+
         stage('Verificar arquivos Kubernetes') {
             steps {
                 script {
                     sh '''
-                    echo "Listando arquivos na pasta backend:"
-                    ls -l backend/
+                    echo "Listando arquivos na raiz do projeto:"
+                    ls -l
                     echo ""
-                    echo "Conteúdo de backend/deployment.yaml:"
-                    cat backend/deployment.yaml
+                    echo "Conteúdo de deployment.yaml:"
+                    cat deployment.yaml
                     echo ""
-                    echo "Conteúdo de backend/service.yaml:"
-                    cat backend/service.yaml
+                    echo "Conteúdo de service.yaml:"
+                    cat service.yaml
                     '''
                 }
             }
@@ -54,8 +53,8 @@ pipeline {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE')]) {
                     withEnv(["KUBECONFIG=$KUBECONFIG_FILE"]) {
                         sh '''
-                            kubectl apply -f backend/deployment.yaml
-                            kubectl apply -f backend/service.yaml
+                            kubectl apply -f deployment.yaml
+                            kubectl apply -f service.yaml
                         '''
                     }
                 }
