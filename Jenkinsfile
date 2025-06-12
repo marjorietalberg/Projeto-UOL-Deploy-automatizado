@@ -52,9 +52,11 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE')]) {
                     script {
-                        // Exporta a variável de ambiente para kubectl usar o kubeconfig correto
-                        sh """
-                            export KUBECONFIG=${KUBECONFIG_FILE}
+                        sh '''
+                            # Copia o arquivo kubeconfig para o workspace para garantir leitura correta
+                            cp "$KUBECONFIG_FILE" ./kubeconfig
+                            export KUBECONFIG=$PWD/kubeconfig
+
                             echo "🌐 Contexto atual do Kubernetes:"
                             kubectl config current-context || exit 1
 
@@ -63,7 +65,7 @@ pipeline {
 
                             echo "🚀 Aplicando service.yaml..."
                             kubectl apply -f service.yaml || exit 1
-                        """
+                        '''
                     }
                 }
             }
