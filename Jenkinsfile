@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        chucknorris()
+    }
+
     environment {
         DOCKER_IMAGE = "marjorie02/fastapi-backend:latest"
     }
@@ -15,7 +19,7 @@ pipeline {
         stage('Build da Imagem Docker') {
             steps {
                 script {
-                    docker.build("${DOCKER_IMAGE}", "backend/")
+                    docker.build("${DOCKER_IMAGE}", ".")
                 }
             }
         }
@@ -24,7 +28,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     script {
-                        sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
+                        sh "echo '${DOCKER_PASS}' | docker login -u '${DOCKER_USER}' --password-stdin"
                         sh "docker push ${DOCKER_IMAGE}"
                     }
                 }
