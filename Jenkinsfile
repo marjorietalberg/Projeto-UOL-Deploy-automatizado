@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        chucknorris()
+    }
+
     environment {
         DOCKER_IMAGE = "marjorie02/fastapi-backend:latest"
     }
@@ -65,7 +69,6 @@ pipeline {
     post {
         success {
             echo '✅ Deploy realizado com sucesso!'
-            echo '💥 Chuck Norris diz: Quando Chuck Norris faz push, o mundo se move.'
         }
         failure {
             echo '❌ Erro no pipeline.'
