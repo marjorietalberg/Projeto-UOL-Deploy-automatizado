@@ -8,14 +8,15 @@ pipeline {
     stages {
         stage('Clonar Repositório') {
             steps {
+                echo '🔄 Clonando repositório...'
                 git branch: 'main', url: 'https://github.com/marjorietalberg/Projeto-UOL-Deploy-automatizado.git'
             }
         }
 
         stage('Build da Imagem Docker') {
             steps {
+                echo '🐳 Construindo a imagem Docker...'
                 script {
-                    // Corrigido: aponta para o diretório onde está o Dockerfile
                     docker.build("${DOCKER_IMAGE}", "backend/")
                 }
             }
@@ -23,6 +24,7 @@ pipeline {
 
         stage('Push para Docker Hub') {
             steps {
+                echo '🚀 Enviando imagem para Docker Hub...'
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     script {
                         sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
@@ -34,6 +36,7 @@ pipeline {
 
         stage('Deploy no Kubernetes') {
             steps {
+                echo '📦 Aplicando configuração no Kubernetes...'
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE')]) {
                     withEnv(["KUBECONFIG=$KUBECONFIG_FILE"]) {
                         sh '''
@@ -49,9 +52,11 @@ pipeline {
     post {
         success {
             echo '✅ Deploy realizado com sucesso!'
+            chucknorris()  // <-- Plugin Chuck Norris executado em sucesso
         }
         failure {
             echo '❌ Erro no pipeline.'
+            chucknorris()  // <-- Plugin Chuck Norris executado em falha também para animar
         }
     }
 }
