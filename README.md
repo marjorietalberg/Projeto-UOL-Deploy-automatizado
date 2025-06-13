@@ -41,14 +41,14 @@
 - [Executando Localmente](README.md#executando-localmente)  
 
 ---
+- [Fase 1 - Preparação do Projeto](./Fases/Fases/01-Preparacao-do-Projeto/README.md)  
+- [Fase 2 - Conteinerização com Docker](./Fases/Fases/02-Conteinerizacao-com-Docker/README.md)  
+- [Fase 3 - Deploy no Kubernetes](./Fases/Fases/03-Arquivos-de-Deploy-no-Kubernetes/README.md)  
+- [Fase 4 - Jenkins: Build e Push](./Fases/Fases/04-Jenkins-Build-Push/README.md)  
+- [Fase 5 - Jenkins: Deploy no Kubernetes](./Fases/Fases/05-Jenkins-Deploy-no-Kubernetes/README.md)  
+- [Fase 6 - Documentação](./Fases/Fases/06-Documentacao/README.md)  
+- [Desafios Extras](./Fases/Fases/07-Desafios-Extras/README.md)  
 
-- [Fase 1 - Preparação do Projeto](./Fases/01-Preparacao-do-Projeto/README.md)  
-- [Fase 2 - Conteinerização com Docker](./Fases/02-Conteinerizacao-com-Docker/README.md)  
-- [Fase 3 - Deploy no Kubernetes](./Fases/03-Arquivos-de-Deploy-no-Kubernetes/README.md)  
-- [Fase 4 - Jenkins: Build e Push](./Fases/04-Jenkins-Build-Push/README.md)  
-- [Fase 5 - Jenkins: Deploy no Kubernetes](./Fases/05-Jenkins-Deploy-no-Kubernetes/README.md)  
-- [Fase 6 - Documentação](./Fases/06-Documentacao/README.md)  
-- [Desafios Extras](./Fases/07-Desafios-Extras/README.md)
   
 ---
 
