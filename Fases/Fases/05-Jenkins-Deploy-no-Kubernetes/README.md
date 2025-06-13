@@ -86,6 +86,9 @@ kubectl get pods
 | ✅ Push para Docker Hub      | Imagem publicada                     |
 | ✅ Deploy automatizado       | Testado e funcionando                |
 
+### Imagens sobre o Projeto 
+<img src="https://github.com/user-attachments/assets/6e40455e-e19c-47c8-bb9b-0fc16c614660" alt="Image">
+
 
 <p align="center">    
   <img src="https://github.com/user-attachments/assets/79a2e995-a1be-4192-9ded-771004ef7417" width="250">
