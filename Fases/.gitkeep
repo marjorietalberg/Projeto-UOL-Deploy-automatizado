@@ -1,1 +1,16 @@
-Fases
+📝 Relato de Desenvolvimento
+Durante o desenvolvimento deste projeto, tive a oportunidade de aplicar na prática uma esteira completa de CI/CD utilizando Jenkins, Docker e Kubernetes com uma aplicação em FastAPI. A proposta foi não apenas técnica, mas também desafiadora, promovendo um ambiente realista de automação e entrega contínua.
+
+A estrutura foi dividida em fases bem definidas, começando pela preparação do ambiente, criação dos repositórios, conta no Docker Hub, até os testes locais com uvicorn. Já nesse início, ficou evidente a importância de um ambiente limpo e bem organizado para evitar retrabalho nas etapas seguintes.
+
+Na fase de conteinerização, foi possível construir e publicar a imagem Docker da aplicação no Docker Hub. Esse processo foi essencial para garantir que a aplicação estivesse empacotada corretamente para os ambientes de produção. Aqui, optei por usar docker build e docker push diretamente, com docker-compose como apoio para testes locais.
+
+Na fase seguinte, vieram os arquivos de deploy no Kubernetes. Criar os manifestos YAML (deployment e service) e aplicar no cluster exigiu atenção aos detalhes e ao versionamento da imagem. A aplicação foi exposta com sucesso, o que foi um marco importante do projeto. No entanto, a etapa mais desafiadora veio a seguir.
+
+A fase 5, que trata da integração do Jenkins com o Kubernetes, representou o maior obstáculo técnico. Configurar o Jenkins para acessar o kubectl exigiu ajustes no agente, cópia do arquivo kubeconfig e garantir que o Jenkins tivesse as permissões adequadas para se comunicar com o cluster. Além disso, enfrentei dificuldades específicas na estrutura de diretórios do backend — alguns caminhos estavam quebrando o build por conta de arquivos mal posicionados ou dependências não reconhecidas. Isso me levou a revisar toda a estrutura da pasta backend/, corrigindo rotas e consolidando a organização dos arquivos da aplicação.
+
+Após superar esses pontos, a etapa de deploy via pipeline Jenkins pôde ser completamente documentada. Mesmo sem executar diretamente, elaborei todos os comandos, arquivos e lógica necessários para que qualquer pessoa consiga reproduzir a esteira.
+
+Além disso, documentei desafios extras, como a inclusão do scanner de vulnerabilidades com o Trivy, envio de notificações via webhook do Discord, a integração com o SonarQube para análise SAST, e sugestões para uso do Helm como gerenciador de pacotes no Kubernetes.
+
+O projeto como um todo representou uma jornada rica de aprendizado em DevOps e DevSecOps. Mesmo nas partes não executadas, a documentação está pronta para ser aplicada em um ambiente prático com poucos ajustes. Acredito que essa abordagem consolida os principais conceitos de entrega contínua, segurança e infraestrutura como código.
