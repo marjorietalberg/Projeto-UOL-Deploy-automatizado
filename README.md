@@ -5,7 +5,7 @@
 <h2 align="center" style="color: #0000FF;">
   Deploy automatizado de API com FastAPI, Jenkins e Kubernetes <p>
     <p align="center">
-  <img src="https://skillicons.dev/icons?i=fastapi,docker,jenkins,kubernetes" alt="Tecnologias" />
+  <img src="https://skillicons.dev/icons?i=fastapi,docker,jenkins,kubernetes" alt="Tecnologias" /> 
 </p>
 </h2>
 
@@ -120,9 +120,6 @@ Documentar todo o processo para garantir reprodução e manutenção do projeto:
   -  Implantar o **SonarQube** em ambiente Docker, integrá-lo com o Jenkins e enviar todo o código da aplicação para análise estática (SAST).  
   -  Utilizar **Helm Chart** para fazer a implantação da aplicação no Kubernetes.  
 
+<img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTh2aXIwZmdidTcyZmRudHY3ZXJrOXV6cGV4YTc1dzdmYXVwbng2aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/BIuuwHRNKs15C/giphy.gif" alt="Chuck Norris dando joinha">  <img src="https://github.com/user-attachments/assets/79a2e995-a1be-4192-9ded-771004ef7417" width="280">
 
 
-
-<p align="center">    
-  <img src="https://github.com/user-attachments/assets/79a2e995-a1be-4192-9ded-771004ef7417" width="250">
-</p>
