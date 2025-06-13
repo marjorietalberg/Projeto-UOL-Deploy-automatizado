@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>API-projeto-jenkins</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+      background-color: #f0f0f0;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    img {
+      max-width: 300px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚀 API-projeto-jenkins</h1>
+
+  <button onclick="getColor()">🎨 Mudar Cor</button>
+  <button onclick="getCat()">🐱 Gato</button>
+  <button onclick="getRandomPhoto()">🖼️ Foto Aleatória</button>
+  <button onclick="getTime()">🕒 Hora Atual</button>
+  <button onclick="getScare()">😱 Susto</button>
+  <button onclick="getLookalike()">👯 Parecido com Você</button>
+
+  <div id="output"></div>
+
+  <script>
+    const API = "http://localhost:8001";
+
+    async function getColor() {
+      const res = await fetch(`${API}/color`);
+      const data = await res.json();
+      document.body.style.backgroundColor = data.color;
+    }
+
+    async function getCat() {
+      const res = await fetch(`${API}/cat`);
+      const data = await res.json();
+      showImage(data.cat_image_url);
+    }
+
+    async function getRandomPhoto() {
+      const res = await fetch(`${API}/random-photo`);
+      const data = await res.json();
+      showImage(data.random_photo_url);
+    }
+
+    async function getTime() {
+      const res = await fetch(`${API}/time`);
+      const data = await res.json();
+      document.getElementById("output").innerHTML = `<h2>${data.current_time}</h2>`;
+    }
+
+    async function getScare() {
+      const res = await fetch(`${API}/scare`);
+      const data = await res.json();
+      showImage(data.scare_image_url);
+    }
+
+    async function getLookalike() {
+      const res = await fetch(`${API}/lookalike`);
+      const data = await res.json();
+      showImage(data.lookalike_image_url);
+    }
+
+    function showImage(url) {
+      document.getElementById("output").innerHTML = `<img src="${url}" alt="Imagem">`;
+    }
+  </script>
+</body>
+</html>
